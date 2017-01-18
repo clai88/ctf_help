@@ -5,7 +5,8 @@ class Shift
         #test only contains characters
         if string =~ /^[a-zA-Z(\s)]*$/
             @string = string
-            generate_possibilities
+            possibilities = generate_possibilities
+            check_against_wordlist(possibilities)
         else
             puts "not a string of characters"
         end
@@ -28,7 +29,7 @@ class Shift
             word = word.join
             possibilities[word] = 0
         end
-        check_against_wordlist(possibilities)
+        possibilities
     end
 
     def increment_ascii(letter, shift)
@@ -70,6 +71,11 @@ class Shift
             puts "#{key} ........#{value}" if (value > 0 && index < 3)
             index+=1
         end
+        @results = results
+    end
+
+    def return_best_guess
+        @results[0][0]
     end
 end
 

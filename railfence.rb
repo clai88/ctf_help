@@ -68,14 +68,25 @@ class Railfence
         results_clone.each do |guess, v|
             guess1 = check_against_wordlist(guess, regex)
             guess2 = check_against_wordlist(guess, regex_two)
-            results[guess] = (guess1.concat(guess2)).length
+            results[guess] = guess1.concat(guess2).length
+
         end
-        #look at the array of solved to see what words were detected
-        results.each { |solved, score| puts solved if score > 5 }
+
+        results = results.sort_by {|k,v| -v}
+        counter = 0
+        results.each do |guess, score|
+            puts "#{guess}....#{score}" if counter < 3
+            counter += 1
+        end
+        @results = results
     end
 
     def check_against_wordlist(word, regex)
         word.scan(regex)
+    end
+
+    def return_best_guess
+        @results[0][0]
     end
 end
 
