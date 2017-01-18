@@ -33,6 +33,7 @@ class Test < Minitest::Test
 
     def test_railfence_lotta_rails
         hey = Railfence.new("oontbcdeeeniicwrhetpndrtnetasomstuthihesegabynamr")
-        assert_equal("onceiwenttothegymnasiumandtriedtobenchpressthebar", hey.return_best_guess)
+        assert_equal("onceiwenttothegymnasiumandtriedtobenchpressthebar", 
+            hey.return_best_guess)
     end
 end
