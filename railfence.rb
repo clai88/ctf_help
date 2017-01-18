@@ -12,10 +12,9 @@ class Railfence
 
     def offset(even, rails, rail)
         return (rails - 1) * 2 if (rail == 0 || rail == (rails - 1))
-
         return even ? 2* rail :  2* (rails - 1 - rail)
     end
-
+    
     def decrypt_rail_fence(rails)
         array = Array.new(rails) { Array.new(@encrypted_length, ' ') }
         read = 0
@@ -24,7 +23,6 @@ class Railfence
         rails.times do |rail|
             pos = offset(1, rails, rail)
             even = false
-
 
             rail == 0 ? pos = 0 : pos = (pos/2).to_i
 
@@ -51,47 +49,27 @@ class Railfence
 
     def generate_possibilities
         possibilities = {}
-        35.times do  |i| 
+        25.times do  |i| 
             decoded = decrypt_rail_fence(i)
             possibilities[decoded] = 0 unless decoded.length < @encrypted_length
         end
         # possibilities.keys.each {|i| puts i unless (i.length < @encrypted_length)}
-        check_against_wordlist(possibilities)
+        best_fit(possibilities)
     end
 
-    def check_against_wordlist(results)
-        results_copy = results.clone
-        word_list = File.read("/usr/share/dict/words").split(" ")
-        results_copy.each do |key,value|
-            puts "checking #{key}"
-            word_array = []
-            for i in (0..key.length)
-                word_array << key[0..i]
-            end
+    def best_fit(results)
+        word_list = File.read("/usr/share/dict/words").split.sort_by {|word | -word.size}[0..117942]
+        word_list_two = File.read("/usr/share/dict/words").split.sort_by {|word | -word.size}[117943..234254]
 
-            # puts word_array #three letter to seven letter character combos
-            word_array.each do |word|
-                results = check_match(key, word, word_list,results)
-            end
-        end
+        regex = Regex.union(*word_list)
+        regex_two = Regex.union(*word_list_two)
 
-        results = results.sort_by {|k,v| v}.reverse
-        list = 0
-
-        results.each do |key, value|
-            puts "#{key} ........#{value}" if (value > 0 && list < 3)
-            list+=1
+        results.each do |guess|
+            guess = checkagainst_wordlist
         end
     end
 
-    def check_match(key, word, word_list, results)
-            word_list.each do |guess|
-                if word.casecmp(guess) == 0
-                    results[key] ? results[key] += 1 : results[key] = 1                    
-                end
-            end
-        results
-    end
+    def checkagainst_wordlist()
 end
 
 
