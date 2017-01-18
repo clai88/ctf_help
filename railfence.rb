@@ -58,18 +58,25 @@ class Railfence
     end
 
     def best_fit(results)
+        results_clone = results.clone
         word_list = File.read("/usr/share/dict/words").split.sort_by {|word | -word.size}[0..117942]
         word_list_two = File.read("/usr/share/dict/words").split.sort_by {|word | -word.size}[117943..234254]
 
-        regex = Regex.union(*word_list)
-        regex_two = Regex.union(*word_list_two)
+        regex = Regexp.union(*word_list)
+        regex_two = Regexp.union(*word_list_two)
 
-        results.each do |guess|
-            guess = checkagainst_wordlist
+        results_clone.each do |guess, v|
+            guess1 = check_against_wordlist(guess, regex)
+            guess2 = check_against_wordlist(guess, regex_two)
+            results[guess] = (guess1.concat(guess2)).length
         end
+        #look at the array of solved to see what words were detected
+        results.each { |solved, score| puts solved if score > 5 }
     end
 
-    def checkagainst_wordlist()
+    def check_against_wordlist(word, regex)
+        word.scan(regex)
+    end
 end
 
 
