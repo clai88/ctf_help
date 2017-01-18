@@ -69,9 +69,8 @@ class Railfence
             guess1 = check_against_wordlist(guess, regex)
             guess2 = check_against_wordlist(guess, regex_two)
             # results[guess] = guess1.concat(guess2).length
-            
+
             split_words = guess1.concat(guess2).reduce(0){ |sum, word| sum + (word.length*word.length)}
-            
             results[guess] = split_words
 
         end
