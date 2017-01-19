@@ -2,14 +2,22 @@ require './shift.rb'
 require './railfence.rb'
 require './shift_no_spaces'
 
-shift_key = "rovvydrsckdocdzrbkcoZkevvks"
-sup = ShiftNoSpaces.new(shift_key)
 
-puts sup.return_best_guess
+#Shift cipher with spaces
+shift_key = "wklv lv d whvw skudvh iru brx wr fudfn"
+Shift.new(shift_key)
 
-# railfence_key = "wgeeolhoctdoolmtieef"
-# hey = Railfence.new(railfence_key)
-# puts hey.return_best_guess
+puts "-----------------------------------------------"
+
+#shift cipher without spaces
+shift_key = "rovvydrsckdocdzrbkcoMrbscvks"
+ShiftNoSpaces.new(shift_key)
+
+puts "------------------------------------------------"
+
+railfence_key = "wgeeolhoctdoolmtieef"
+Railfence.new(railfence_key)
+
 
 
 # miyyfdltolhgaeyiyucwkeeiprlseoefvsoenusinbfdlfouuneemtlbyhbereart
