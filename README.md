@@ -7,8 +7,7 @@ Input your test phrase into the appropriate variable in runner.rb type ```ruby r
 
 tada!
 
-
-\n
-\n
+<CR>
+<CR>
 
 *railfence w/ offsets currently not supported
