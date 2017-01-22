@@ -12,6 +12,6 @@ tada!
 <CR>
 <CR>
 
-![example](http://imgur.com/a/JY40V)
+![example](http://i.imgur.com/ail8HqH.png)
 
 *railfence w/ offsets currently not supported
